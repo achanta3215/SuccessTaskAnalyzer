@@ -1,124 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:hint="Enter Task Name"
-        android:id="@+id/editTextNewTask"
-        />
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinnerNewTask"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"></Spinner>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:hint="Enter Task Description"
-        android:id="@+id/editTextDescription"
-        />
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginEnd="5dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Schedule"
-            android:layout_marginLeft="5dp"/>
-
-        <Switch
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/switchNewTaskSchedule"
-            android:layout_alignParentEnd="true"
-            android:checked="true"/>
-    </RelativeLayout>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/task_details"></include>
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-
-            <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="to"
-                android:id="@+id/textToNewTask"
-            android:layout_centerInParent="true"/>
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="30dp"
-                android:id="@+id/editTextNewTaskMinuteFromTime"
-                android:layout_toStartOf="@id/textToNewTask"
-                android:layout_marginEnd="10dp"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=":"
-                android:id="@+id/textNewTaskColonFromTime"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/editTextNewTaskMinuteFromTime"
-                />
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="30dp"
-                android:layout_toLeftOf="@id/textNewTaskColonFromTime"
-                android:id="@+id/editTextNewTaskHourFromTime"
-                android:inputType="time"/>
+            android:layout_height="400dp"
+            android:id="@+id/relativeLayoutCalendarViewNewTask">
 
 
-
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="30dp"
-                android:id="@+id/editTextNewTaskHourToTime"
-                android:layout_toEndOf="@id/textToNewTask"
-                android:layout_marginStart="10dp"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=":"
-                android:id="@+id/textNewTaskColonToTime"
-                android:layout_toEndOf="@id/editTextNewTaskHourToTime"
-                android:layout_centerVertical="true"
-                />
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="30dp"
-                android:id="@+id/editTextNewTaskMinuteToTime"
-                android:layout_toEndOf="@id/textNewTaskColonToTime"
-                />
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvNewTaskAccepted"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvNewTaskRejected"
+                android:layout_toEndOf="@id/tvNewTaskAccepted"/>
+        </RelativeLayout>
 
     </LinearLayout>
 
 
-</LinearLayout>
+</android.support.v4.widget.NestedScrollView>

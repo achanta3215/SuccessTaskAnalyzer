@@ -2,6 +2,7 @@ package com.geniuscreations.successtaskanalyzer;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,22 +23,40 @@ import android.widget.*;
 import android.widget.ListView;
 import android.support.design.widget.TabLayout;
 
+import com.geniuscreations.successtaskanalyzer.com.geniuscreations.interfaceMe.RefreshAdapter;
+import com.geniuscreations.successtaskanalyzer.com.geniuscreations.popup.NewDialog;
+import com.geniuscreations.successtaskanalyzer.com.geniuscreations.popup.NewGoal;
 import com.geniuscreations.successtaskanalyzer.com.geniuscreations.popup.NewTask;
 
 /**
  * Created by Krishna sameer on 3/15/2016.
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RefreshAdapter{
 
     static final int NUM_ITEMS = 3;
-    static final String[] titles = {"Today","Recommendations","Goals"};
+    static final String[] titles = {"Today","Scheduled","Goals"};
     MyAdapter mAdapter;
-
+    static Goals goal;
     ViewPager mPager;
     private TabLayout tabLayout;
     int currentPagePosition = 0;
+    RefreshAdapter refreshAdapter;
+    Context context;
+    @Override
+    public void refreshAdapter(String s) {
 
-    enum TITLES {TODAY,RECOMMENDATIONS,GOALS}
+        Toast.makeText(context,"Entered here",Toast.LENGTH_SHORT).show();
+        switch (s){
+            case RefreshAdapter.Goals:
+                refreshAdapter = (Goals) goal;
+                refreshAdapter.refreshAdapter("");
+                break;
+            case RefreshAdapter.Task:
+                break;
+        }
+    }
+
+    enum TITLES {TODAY,SCHEDULED,GOALS}
 
 
 
@@ -46,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         // TODO Auto-generated method stub
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
 
@@ -58,15 +77,21 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_new:
                 String currentSelectedItem = titles[currentPagePosition];
                 android.app.FragmentManager manager = getFragmentManager();
+                NewDialog newDialog = null;
                 switch (TITLES.valueOf(currentSelectedItem.toUpperCase())){
                     case TODAY:
-                        NewTask newTask = new NewTask();
-                        newTask.show(manager,"NewTask");
+                        Intent intent = new Intent(this, com.geniuscreations.successtaskanalyzer.NewTask.class);
+                        startActivity(intent);
+                        //newDialog = new NewTask();
+                        //newDialog.show(manager,"NewTask");
                         return true;
-                    case RECOMMENDATIONS:
+                    case SCHEDULED:
                         break;
                     case GOALS:
-                        break;
+                        newDialog = new NewGoal();
+                        Bundle args = new Bundle();
+                        newDialog.show(manager,"NewGoal");
+                        return true;
                 }
                 break;
             default:
@@ -79,10 +104,15 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i("Hi","Oye");
         super.onCreate(savedInstanceState);
+
+        context = getBaseContext();
         setContentView(R.layout.activity_main);
         Toolbar myToolBar = (Toolbar) findViewById(R.id.mainToolBar);
         setSupportActionBar(myToolBar);
@@ -144,12 +174,14 @@ public class MainActivity extends AppCompatActivity {
         static ArrayListFragment newInstance(int num) {
 
             ArrayListFragment f = null;
+            Log.i("Hi","Hi");
             switch(num){
-                case 0: f = new Schedule();
+                case 0: f = new TodayTask();
                     break;
-                case 1: f = new Task();
+                case 1: f = new Weekly();
                     break;
-                case 2 : f = new Task();
+                case 2 : goal = new Goals();
+                         f = goal;
                     break;
             }
 
@@ -186,10 +218,7 @@ public class MainActivity extends AppCompatActivity {
             //android.R.layout.simple_list_item_1, new String[]{"r","s","t"}));
         }
 
-        /*@Override
-        public void onListItemClick(ListView l, View v, int position, long id) {
-            super.onListItemClick(l, v, position, id);
-        }*/
+
     }
 
 

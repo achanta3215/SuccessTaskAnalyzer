@@ -26,4 +26,5 @@ dependencies {
     compile 'com.android.support:design:23.3.0'
 
     compile 'com.android.support:gridlayout-v7:23.2.1'
+    compile 'com.github.SpongeBobSun:mCalendarView:6c384cdc8b'
 }

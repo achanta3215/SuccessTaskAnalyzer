@@ -17,7 +17,7 @@ import android.database.sqlite.SQLiteOpenHelper;
         @Override
         public void onCreate(SQLiteDatabase db) {
 
-            db.execSQL(DbContract.TableCategory.SQL_CREATE_TABLE);
+            db.execSQL(DbContract.TableGoal.SQL_CREATE_TABLE);
             db.execSQL(DbContract.TableTask.SQL_CREATE_TABLE);
 
         }
